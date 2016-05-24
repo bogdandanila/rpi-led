@@ -1,0 +1,30 @@
+{
+  "name": "led",
+  "version": "1.0.0",
+  "description": "Turn an LED on-off through RPi and Express",
+  "main": "led.js",
+  "dependencies": {
+    "express": "^4.13.4",
+    "rpi-gpio": "^0.7.0"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/bogdandanila/rpi-led.git"
+  },
+  "keywords": [
+    "LED",
+    "Express",
+    "Node",
+    "RaspberryPI"
+  ],
+  "author": "Bogdan Danila",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/bogdandanila/rpi-led/issues"
+  },
+  "homepage": "https://github.com/bogdandanila/rpi-led#readme"
+}
