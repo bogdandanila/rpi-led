@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Raspberry PI LED Switch</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div class="container">
+  <h1>Raspberry PI LED Switch</h1>
+
+  <h2>Status: <span data-status></span></h2>
+  <hr>
+
+  <button class="js-on btn on" type="button">Turn ON</button>
+  <button class="js-off btn off" type="button">Turn OFF</button>
+</div>
+
+<script src="jquery.min.js"></script>
+<script>
+  (function ($) {
+    var onClass = 'js-on',
+      offClass = 'js-off',
+      STATUS = undefined,
+      $statusEl = $('[data-status]');
+
+    getStatus().then(updateStatus);
+
+    $('.btn').on('click', function (e) {
+      e.preventDefault();
+
+      var $el = $(this);
+
+      if ($el.hasClass(onClass)) {
+        switchLED('on').then(getStatus).then(updateStatus);
+      } else if ($el.hasClass(offClass)) {
+        switchLED('off').then(getStatus).then(updateStatus);
+      }
+    });
+
+    function switchLED(how) {
+      return $.ajax({
+        method: 'POST',
+        url: '/switch/' + how
+      })
+    }
+
+    function getStatus() {
+      return $.ajax({
+        method: 'GET',
+        url: '/status',
+        success: function (response) {
+          STATUS = response.status;
+        }
+      })
+    }
+
+    function updateStatus() {
+      var status = STATUS ? STATUS : 'undefined';
+
+      $statusEl
+        .removeAttr('class')
+        .addClass('status-' + status)
+        .html(status.toUpperCase());
+    }
+  }(jQuery));
+</script>
+</body>
+</html>
+
